@@ -2,7 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase
 import {
   getAuth,
   createUserWithEmailAndPassword,
-  signOut
+  signOut,
+  signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -71,5 +72,36 @@ logout.addEventListener('click', (e) => {
     .catch(err => {
       console.log('signout failed')
     })
+
+})
+
+/***
+ * Loggin in users
+ */
+
+const loginForm = document.getElementById('login-form')
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  const email = document.getElementById('login-email').value
+  const password = document.getElementById('login-password').value
+
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // 
+      console.log('sign in successful')
+      // close the log in modal
+      const modal = document.querySelector('#modal-login')
+      M.Modal.getInstance(modal).close();
+      loginForm.reset();
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log('sign in failed')
+    });
 
 })
