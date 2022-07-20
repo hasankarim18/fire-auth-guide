@@ -32,14 +32,6 @@ const db = getFirestore(app)
 /**
  * get data
  */
-getDocs(collection(db, "guides"))
-  .then(snapShot => {
-    console.log(snapShot.docs)
-    setupGuides(snapShot.docs)
-  })
-  .catch(err => {
-    console.log(err)
-  })
 
 
 
@@ -57,10 +49,22 @@ onAuthStateChanged(auth, (user) => {
     // https://firebase.google.com/docs/reference/js/firebase.User
     const uid = user.uid;
     console.log('user logged in ', uid)
+
+    getDocs(collection(db, "guides"))
+      .then(snapShot => {
+        console.log(snapShot.docs)
+        setupGuides(snapShot.docs)
+      })
+      .catch(err => {
+        console.log(err)
+
+      })
+
     // ...
   } else {
     // User is signed out
     // ...
+    setupGuides([])
     console.log('user logged out')
   }
 });
