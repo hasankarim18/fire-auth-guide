@@ -6,7 +6,12 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -22,6 +27,22 @@ const auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app)
+
+
+/**
+ * get data
+ */
+getDocs(collection(db, "guides"))
+  .then(snapShot => {
+    console.log(snapShot.docs)
+    setupGuides(snapShot.docs)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+
+
 
 /****
  *  Listen for auth status changes
