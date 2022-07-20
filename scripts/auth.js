@@ -1,7 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signOut
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -52,5 +53,23 @@ signupForm.addEventListener('submit', (e) => {
       console.log('signup failed', errorMessage)
     });
 
+})
+
+/**********
+ * 
+ * Singing out users 
+ */
+
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault()
+
+  signOut(auth)
+    .then(res => {
+      console.log('sign out successfull')
+    })
+    .catch(err => {
+      console.log('signout failed')
+    })
 
 })
