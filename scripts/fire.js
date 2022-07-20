@@ -8,14 +8,7 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyD7WwRYgc4DLARSJKRWmT44Tfnoj4qKprU",
-    authDomain: "fire-auth-112b5.firebaseapp.com",
-    projectId: "fire-auth-112b5",
-    storageBucket: "fire-auth-112b5.appspot.com",
-    messagingSenderId: "383605007046",
-    appId: "1:383605007046:web:10ffa191f8b9009c836dc7"
-};
+import { firebaseConfig } from './firebaseConfig'
 
 // Initialize Firebase 9
 const app = initializeApp(firebaseConfig);
