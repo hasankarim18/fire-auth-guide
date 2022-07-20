@@ -3,7 +3,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signOut,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-firestore.js";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,7 +23,26 @@ const auth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app)
 
+/****
+ *  Listen for auth status changes
+ * 
+ * 
+ */
 
+onAuthStateChanged(auth, (user) => {
+  console.log('user: --', user)
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    console.log('user logged in ', uid)
+    // ...
+  } else {
+    // User is signed out
+    // ...
+    console.log('user logged out')
+  }
+});
 
 
 // sign up form
@@ -38,9 +58,9 @@ signupForm.addEventListener('submit', (e) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
-      console.log('credential', userCredential)
+
       const user = userCredential.user;
-      console.log('signup success user', user)
+
       // close modal 
       const modal = document.querySelector('#modal-signup')
       M.Modal.getInstance(modal).close();
@@ -51,7 +71,7 @@ signupForm.addEventListener('submit', (e) => {
       const errorCode = error.code;
       const errorMessage = error.message;
       // ..
-      console.log('signup failed', errorMessage)
+
     });
 
 })
@@ -68,9 +88,6 @@ logout.addEventListener('click', (e) => {
   signOut(auth)
     .then(res => {
       console.log('sign out successfull')
-    })
-    .catch(err => {
-      console.log('signout failed')
     })
 
 })
