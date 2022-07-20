@@ -8,6 +8,8 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.9.0/firebase-
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
+
 import { firebaseConfig } from './firebaseConfig'
 
 // Initialize Firebase 9
