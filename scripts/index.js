@@ -2,6 +2,7 @@
 const guideList = document.querySelector('.guides')
 
 // setup guides 
+//l-11  auth check
 
 const setupGuides = (data) => {
   console.log('data', data)
